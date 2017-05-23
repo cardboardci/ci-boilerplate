@@ -47,8 +47,6 @@ build:
 		--build-arg BUILD_DATE="${BUILD_DATE}" \
 		--build-arg VERSION="${CODE_VERSION}" \
 		--build-arg VCS_REF="${GIT_COMMIT}" \
-		--build-arg FONTFORGE_URL="${FONTFORGE_URL}" \
-		--build-arg PDF2HTMLEX_URL="${PDF2HTMLEX_URL}" \
 		--build-arg USER="${USER}" \
 		-f ${DOCKERFILE} ${DOCKER_DIR}/.
 
