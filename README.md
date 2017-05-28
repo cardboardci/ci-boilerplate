@@ -125,3 +125,6 @@ docker inspect -f '{{ index .Config.Labels "io.jrbeverly.group" }}' IMAGE
 The notation of the build variables is short form for docker user id (`DUID`) and docker group id (`DGID`). 
 
 [^1]: It is necessary to ensure that the **docker user** (`DUID`) has permission to access volumes. (see [User / Group Identifiers](#user-and-group-mapping))
+
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg?maxAge=2592000
+[license-link]: LICENSE
