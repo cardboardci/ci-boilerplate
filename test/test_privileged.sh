@@ -1,4 +1,5 @@
 #!/bin/sh
+source lib/testbase.sh
 
 # Variables
 #
@@ -21,20 +22,6 @@ function install()
 #
 # Runs the tests.
 (
-    function assertEquals()
-    {
-        msg=$1
-        expected=$2
-        actual=$3
-
-        if [ "$expected" != "$actual" ]; then
-            echo "$msg: FAILED: EXPECTED=$expected ACTUAL=$actual"
-        else
-            echo "$msg: PASSED"
-        fi
-    }
-
-    echo "Testing image for privileged."
     mkdir -p $BIN_DIR
     (
       RESULT=$(install)
