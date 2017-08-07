@@ -1,15 +1,12 @@
-FROM jrbeverly/baseimage:alpine-3.5
-MAINTAINER jrbeverly
+FROM jrbeverly/baseimage:alpine
 
-# Build Arguments
 #
-# Arguments used in the build process of the docker container.
-# ..
+# Provision
+#
+COPY rootfs/ /
 
-# Environment Variables
-#
-# Environment variables present in the docker container.
-# ..
+COPY provision/install.sh /tmp/install.sh
+RUN sh /tmp/install.sh && rm -f /tmp/install.sh
 
 # Provision
 #
@@ -17,45 +14,49 @@ MAINTAINER jrbeverly
 COPY provision/install.sh /tmp/install.sh
 RUN sh /tmp/install.sh && rm -f /tmp/install.sh
 
-# Volumes
-#
-# Volumes exposed by the docker container.
-VOLUME /media
-
+# 
 # Options
-#
-# Configuration options of the docker container.
+# 
 WORKDIR /media
 ENTRYPOINT []
 CMD []
 
-# User Arguments
 #
-# Arguments used in the user process of the docker container.
-ARG USER
-
 # User
 #
-# Configuration of the docker user for container execution.
-USER ${USER}
+ARG USER
+USER $USER
 
+#
 # Metadata Arguments
 #
-# Arguments used in the build process of the docker container.
 ARG BUILD_DATE
 ARG VERSION
 ARG VCS_REF
 
-# Metadata 
 #
-# The metadata of the image.
+# Metadata
+#
 LABEL \
-    org.label-schema.build-date=$BUILD_DATE \
+    maintainer="jrbeverly" \
+    \
     org.label-schema.name="boilerplate" \
-    org.label-schema.description="A boilerplate template for docker projects." \
-    org.label-schema.url="https://gitlab.com/jrbeverly-docker/docker-boilerplate" \
+    org.label-schema.summary="A boilerplate image showing the structure of a project." \
+    org.label-schema.description="Summary of an image." \
+    org.label-schema.maintainer="jrbeverly" \
+    org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.version=$VERSION \
+    org.label-schema.url="https://www.docker.com/" \
     org.label-schema.license="MIT" \
     org.label-schema.vcs-type="Git" \
     org.label-schema.vcs-ref=$VCS_REF \
-    org.label-schema.vcs-url="https://gitlab.com/jrbeverly-docker/docker-boilerplate.git" \
-    org.label-schema.version=$VERSION
+    org.label-schema.vcs-url="https://gitlab.com/jrbeverly-docker/docker-boilerplate" \
+    org.label-schema.docker.cmd="ddocker run hello-world" \
+    \
+    io.jrbeverly.project="boilerplate" \
+    io.jrbeverly.summary="A docker image with boilerplate, running as the $USER user." \
+    io.jrbeverly.boilerplate.meta.BUILD_DATE="The Date/Time the image was built." \
+    io.jrbeverly.boilerplate.meta.VERSION="Release identifier for the contents of the image." \
+    io.jrbeverly.boilerplate.meta.VCS_REF="Identifier for the version of the source code from which this image was built." \
+    io.jrbeverly.boilerplate.args.USER="Sets the [user](http://www.linfo.org/uid.html) to use when running the image." \
+    io.jrbeverly.boilerplate.volume.media="/media/|The default working directory of the image."
