@@ -1,5 +1,6 @@
 include Makefile.file.variable
 include Makefile.metadata.variable
+include Makefile.image.variable
 
 # Variables
 #
@@ -8,7 +9,6 @@ DEFAULT_VERSION := -no-version-set-
 VERSION ?= $(DEFAULT_VERSION)
 TAG_SUFFIX ?=
 TAG_PREFIX ?=
-BUILD_PARAMETERS =
 
 # Validation
 #
@@ -25,15 +25,6 @@ ifeq (,$(wildcard $(PATH_OPTIONS)))
 $(error The version [$(VERSION)] is incorrectly setup and does not have a 'Makefile.options')
 endif
 include $(PATH_OPTIONS)
-endif
-
-ifeq (,$(wildcard $(PATH_IMAGEFILE)))
-$(error The docker image is defined in 'info/')
-endif
-include $(PATH_IMAGEFILE)
-
-ifeq (,$(wildcard $(PATH_VERSIONFILE)))
-$(error The version of the docker image is not present in 'info/')
 endif
 
 # Registry
@@ -53,8 +44,7 @@ WORKING_IMAGE ?= $(STAGING_IMAGE):$(TAG_PREFIX)$(TAG)$(TAG_SUFFIX)
 ## 
 ## Rules
 ##
-.PHONY: build test prune purge clean debug pull push release image info debug check-env
-default: info
+.PHONY: build test prune purge clean debug pull push release image debug check-env
 
 # Output
 #
@@ -82,9 +72,6 @@ info:
 	@echo PATH_ROOT = $(PATH_ROOT)
 	@echo PATH_VERSIONS = $(PATH_VERSIONS)
 	@echo PATH_TESTS = $(PATH_TESTS)
-	@echo
-	@echo Versions:
-	@echo $(shell ls ${PATH_VERSIONS} | tr "\n" " " )
 
 # Tidy Up
 #
@@ -120,7 +107,7 @@ build: check-path check-tag
 		--build-arg VERSION="${CODE_VERSION}" \
 		--build-arg VCS_REF="${GIT_COMMIT}" \
 		\
-		$(BUILD_PARAMS) \
+		--build-arg USER="${USER}" \
 		\
 		-f $(PATH_DOCKERFILE) $(PATH_DOCKER)/. \
 
@@ -131,7 +118,7 @@ build: check-path check-tag
 # Tests the working docker image
 test: check-version check-tag check-test
 	@echo Running '$(VERSION)' tests on $(WORKING_IMAGE).
-	docker run --rm -v $(MOUNT_TESTS):/media $(WORKING_IMAGE) sh test/$(VERSION)/test.sh
+	docker run --rm -v $(MOUNT_TESTS):/media $(WORKING_IMAGE) sh test_$(VERSION).sh
 
 # Registry 
 #
@@ -159,8 +146,8 @@ deploy: check-version check-tag
 
 # Ensures that the test path is valid
 check-test:
-ifeq (,$(wildcard $(PATH_DOCKER_TEST)/test.sh))
-	$(error The testing for version [$(VERSION)] is not valid for this image.  See tests/test/ for possible image versions [$(PATH_DOCKER_TEST)/test.sh])
+ifeq (,$(wildcard $(PATH_TESTS)/test_$(VERSION).sh))
+	$(error The testing for version [$(VERSION)] is not valid for this image.  See versions/ for possible image versions [$(PATH_TESTS)/test_$(VERSION).sh])
 endif
 
 # Ensures that the tag is set
