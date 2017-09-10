@@ -1,0 +1,7 @@
+build:
+  image: jrbeverly/boilerplate:baseimage
+  script:
+    - echo "My Sample Script" > text
+  artifacts:
+    paths:
+      - text
