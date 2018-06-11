@@ -2,5 +2,5 @@
 set -ex
 cd /tmp/
 
-apk update
-apk upgrade
+apt-get update
+apt-get upgrade -y

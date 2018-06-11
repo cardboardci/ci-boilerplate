@@ -1,8 +1,15 @@
-## Editors:
-.vscode/
+# Images #
+docs/**/*.png
 
-## Documentation images:
-docs/**/images/
-
-## Test outputs:
+# Test outputs
 tests/target/
+
+# Packages #
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
