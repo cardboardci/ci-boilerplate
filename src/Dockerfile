@@ -1,4 +1,4 @@
-FROM jrbeverly/baseimage:alpine
+FROM jrbeverly/baseimage:ubuntu
 
 #
 # Provision

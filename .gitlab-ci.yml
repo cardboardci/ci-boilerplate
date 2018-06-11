@@ -13,13 +13,13 @@ stages:
   - deploy
 
 variables:
-  STAGING_REGISTRY: registry.gitlab.com
-  STAGING_NAMESPACE: [PH_NAMESPACE]
-  STAGING_PROJECT: [PH_PROJECT]
+  STAGING_REGISTRY: docker.io
+  STAGING_NAMESPACE: jrbeverly
+  STAGING_PROJECT: boilerplate
 
   REGISTRY: docker.io
-  NAMESPACE: [PH_NAMESPACE]
-  PROJECT: [PH_PROJECT]
+  NAMESPACE: jrbeverly
+  PROJECT: boilerplate
 
   GIT_COMMIT: ${CI_COMMIT_SHA}
   TAG_PREFIX: ${CI_PIPELINE_ID}-
