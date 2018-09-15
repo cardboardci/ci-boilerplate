@@ -2,7 +2,7 @@
 
 ## Summary
 
-A boilerplate template for specifying a docker image using the makefile build approach. The project icon is from [cre.ativo mustard, HK from the Noun Project](docs/icon/icon.json).
+A boilerplate template for specifying a docker image using the makefile build approach. The project icon is from [cre.ativo mustard, HK from the Noun Project](docs/icon/icon.json)
 
 **This model of creating docker image has been deprecated.**
 
