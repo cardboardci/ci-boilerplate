@@ -1,0 +1,20 @@
+slug: ci-boilerplate
+description: '[DEPRECATED] A boilerplate template for specifying a docker image using the makefile build approach.'
+project: cardboardci
+namespace: ci
+status: archived
+icon: icon.svg
+license:
+  type: MIT
+  content: Jonathan Beverly <jrbeverly>
+  year: 2017
+topics: |-
+  [
+    "docker",
+    "docker-ci-images",
+    "docker-boilerplate",
+    "makefile",
+    "shell",
+    "boilerplate",
+    "template"
+  ]
